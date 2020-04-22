@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<h2>List of Merchants</h2>
+<ul>
+	<tr th:each="merchant: ${merchants}">
+		<li>
+		    <a th:href="'/merchant/' + ${merchant.merchantId}" target="_blank"><span th:text= "${merchant.website}"> </span></a>
+		    <h3> <td  th:text="${merchant.name}" /> </h3>
+		</li>
+	</tr>
+</ul>
+
+
+</body>
+</html>
