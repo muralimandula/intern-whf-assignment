@@ -18,8 +18,7 @@ public class EzepayApplication {
 //	private static final Logger log = LoggerFactory.getLogger(EzepayApplication.class);
 	
 	public static void main(String[] args) throws IOException {
-		
-		new RunHelper().killAndRun();
+
 		SpringApplication.run(EzepayApplication.class, args);
 	}
 	

@@ -12,6 +12,10 @@ public class PaymentResponseBody {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public PaymentResponseBody(Long refId) {
+		this.referenceId = refId;
+	}
+	
 	public PaymentResponseBody(Long refIdLong, int i, String string) {
 		// TODO Auto-generated constructor stub
 		this.referenceId = refIdLong;
