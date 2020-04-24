@@ -9,5 +9,4 @@ public class EzepaySimulatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EzepaySimulatorApplication.class, args);
 	}
-
 }

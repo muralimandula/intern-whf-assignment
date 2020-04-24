@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ezepaysimulator.models.PaymentResponseBody;
+import com.example.ezepaysimulator.repositories.DummyRepository;
 import com.example.ezepaysimulator.repositories.PaymentRequestRepository;
+import com.example.ezepaysimulator.repositories.PaymentResponseRepository;
 import com.example.ezepaysimulator.models.PaymentRequestBody;
 
 @Controller
@@ -21,29 +23,41 @@ public class AuthenticationController {
 	@Autowired
 	PaymentRequestRepository paymentRequestRepository;
 	
+	@Autowired
+	PaymentResponseRepository paymentResponseRepository;
+	
+	@Autowired
+	DummyRepository dummyRepository;
+	
 	@PostMapping("/authentication")
 	public ResponseEntity<PaymentResponseBody> doAuthenticationEntity(@RequestBody PaymentRequestBody paymentRequestBody) {
 		
 		log.info("----- Payment request made by " + paymentRequestBody.getCustomerName());
 		
+		
 		Long refIdLong = paymentRequestRepository.save(paymentRequestBody).getReferenceId();
+//		dummyRepository.save(new DummyModel());
 		PaymentResponseBody responseBody = new PaymentResponseBody(refIdLong);
 		
 		int paymentAmount = paymentRequestBody.getAmount();
 		
 		if (paymentAmount < 50) {
 			responseBody.setErrorCode(101);
+			responseBody.setStatus("FAILED");
 			responseBody.setMessage("Transaction amount must be 50  or above.");
-			return ResponseEntity.ok(responseBody);
-		} else if (paymentAmount > 1000) {
+		} else if (paymentAmount > 10000) {
 			responseBody.setErrorCode(201);
-			responseBody.setMessage("Transaction amount above 1000 cannot be processed now.");
-			return ResponseEntity.ok(responseBody);
+			responseBody.setStatus("FAILED");
+			responseBody.setMessage("Transaction amount above 10000 cannot be processed now.");
 		}else {
 			responseBody.setErrorCode(200);
+			responseBody.setStatus("SUCCESS");
 			responseBody.setMessage("Transaction successful.");	
-			return ResponseEntity.ok(responseBody);
 		}
+		
+		paymentResponseRepository.save(responseBody);
+		
+		return ResponseEntity.ok(responseBody);
 
 	}
 }

@@ -11,7 +11,7 @@ public class PaymentRequestBody {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long referenceId;
-	
+
 	private Long gatewayId;
 	private int cardBin;
 	private int cardNum;
