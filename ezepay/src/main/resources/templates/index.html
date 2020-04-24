@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<body>
 
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+<body>
+	<div>
 <h2>List of Merchants</h2>
 <ul>
 	<tr th:each="merchant: ${merchants}">
-		<li>
-		    <a th:href="'/merchant/' + ${merchant.merchantId}" target="_blank"><span th:text= "${merchant.website}"> </span></a>
-		    <h3> <td  th:text="${merchant.name}" /> </h3>
-		</li>
+			<div class="card" style="width: 18rem;">
+			  <div class="card-body">
+			    <h5 class="card-title" th:text="${merchant.name}"></h5>
+			    <p class="card-text" th:text="${merchant.website}"></p>
+			    
+			    <a th:href="'/merchant/' + ${merchant.merchantId}" class="btn btn-primary">Do payment</a>
+			  </div>
+			</div>
+			</br>			
 	</tr>
 </ul>
 

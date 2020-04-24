@@ -1,17 +1,18 @@
 package com.example.ezepay.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 
 @Entity
 public class PaymentRequestBody {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@Column(name = "simulator_ref_Id")
 	private Long referenceId;
 	
+	@Id
 	private Long gatewayId;
 	private int cardBin;
 	private int cardNum;

@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
+import com.example.ezepay.services.AuthenticationService;
 import com.example.ezepay.services.CardService;
 import com.example.ezepay.services.CustomerService;
 import com.example.ezepay.services.TransactionService;
@@ -23,6 +25,10 @@ public class EzepayApplication {
 	}
 	
 	@Bean
+	public RestTemplate getRest( ) {
+		return new RestTemplate();
+	}
+	@Bean
 	public CustomerService getcs( ) {
 		return new CustomerService();
 	}
@@ -35,6 +41,11 @@ public class EzepayApplication {
 	@Bean
 	public TransactionService getts( ) {
 		return new TransactionService();
+	}
+	
+	@Bean
+	public AuthenticationService getAuth() {
+		return new AuthenticationService();
 	}
 	
 //	  @Bean
