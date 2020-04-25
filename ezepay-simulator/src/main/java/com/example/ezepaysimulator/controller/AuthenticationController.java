@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -12,6 +14,7 @@ import com.example.ezepaysimulator.models.PaymentResponseBody;
 import com.example.ezepaysimulator.repositories.DummyRepository;
 import com.example.ezepaysimulator.repositories.PaymentRequestRepository;
 import com.example.ezepaysimulator.repositories.PaymentResponseRepository;
+import com.example.ezepaysimulator.models.DummyModel;
 import com.example.ezepaysimulator.models.PaymentRequestBody;
 
 @Controller
@@ -28,6 +31,21 @@ public class AuthenticationController {
 	
 	@Autowired
 	DummyRepository dummyRepository;
+	
+	@GetMapping("/dummy/{name}")
+	public DummyModel getDummy(@PathVariable String name) {
+		DummyModel dModel = new DummyModel(name);
+		dummyRepository.save(dModel);
+		return dModel;
+	}
+	
+	@GetMapping("/update/{id}/{newName}")
+	public DummyModel updateDummy(@PathVariable String id, @PathVariable String newName) {
+		DummyModel dModel = dummyRepository.findById(Long.parseLong(id)).get();
+		dModel.setName(newName);
+		dummyRepository.save(dModel);
+		return dModel;
+	}
 	
 	@PostMapping("/authentication")
 	public ResponseEntity<PaymentResponseBody> doAuthenticationEntity(@RequestBody PaymentRequestBody paymentRequestBody) {
