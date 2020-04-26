@@ -47,6 +47,7 @@
                             <td>{{$eachTransaction['amount']}}</td>
                             <td>{{$eachTransaction['date']}}</td>
                             <td>{{$eachTransaction['status']}}</td>
+                            <td><a href="{{action('TransactionController@show', $eachTransaction['transaction_id'])}}" class="btn btn-primary">View</a></td>
                             <td>
                                 <select name="newStatus" class="browser-default custom-select">
                                     <option selected>Change status</option>
@@ -56,7 +57,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="submit" class="btn btn-primary" value="Update"/>    
+                                <input type="submit" class="btn btn-warning" value="Update"/>    
                             </td>
                         </tr>
                     </form>

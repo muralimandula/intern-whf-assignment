@@ -50,6 +50,8 @@ class TransactionController extends Controller
     public function show($id)
     {
         //
+        $transaction = Transaction::find($id);
+        return view('transaction.show', compact('transaction'));
     }
 
     /**
@@ -61,6 +63,7 @@ class TransactionController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -77,11 +80,11 @@ class TransactionController extends Controller
         //     'newStatus' => 'required|changeStatusValidator',
         // ]);
 
-        $transactionWithId = Transaction::find($id);  // reads as find(id) | If primaryKey column name is not 'id' should mention column_name in Model
+        $transaction = Transaction::find($id);  // reads as find(id) | If primaryKey column name is not 'id' should mention column_name in Model
 
-        $transactionWithId['status'] = $request->get('newStatus');
+        $transaction['status'] = $request->get('newStatus');
 
-        $transactionWithId->save();
+        $transaction->save();
 
         // Uses  route from routes/web.php       
         // Route::resource('transactions', 'TransactionController'); "transactions" is usage name of TransactionController

@@ -38,17 +38,18 @@
                     <th>Email</th>
                 </tr>
                 @foreach ($allCustomers as $eachCustomer)
-                    <form action={{action('CustomerController@edit', $eachCustomer['customer_id'])}} method="POST">
+                    {{-- <form action={{action('CustomerController@edit', $eachCustomer['customer_id'])}} method="GET"> --}}
+                    <form>
                         {{ csrf_field() }}
                         {{-- PATCH method instead of PUT, will see later --}}
-                        <input type="hidden" name="_method"  value="PATCH"/>
+                        {{-- <input type="hidden" name="_method"  value="PATCH"/> --}}
                         <tr>
                             <td>{{$eachCustomer['customer_id']}}</td>
                             <td>{{$eachCustomer['first_name']}}</td>
                             <td>{{$eachCustomer['contact']}}</td>
                             <td>{{$eachCustomer['email']}}</td>
                             <td>
-                                <input type="submit" class="btn btn-primary" value="Update"/>    
+                                <td><a href="{{action('CustomerController@edit', $eachCustomer['customer_id'])}}" class="btn btn-warning">Edit</a></td>
                             </td>
                         </tr>
                     </form>

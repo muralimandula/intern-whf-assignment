@@ -9,8 +9,21 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a class="navbar-brand" href="/">Ezepay Admin</a></li>
+                        <li><a href="/transactions">Transactions</a></li>
+                        <li><a href="/customers">Customers</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+        <div class="navbar navbar-collapse">
 
+        </div>
+        <div class="container">
             @yield('content')
         </div>
     </body>

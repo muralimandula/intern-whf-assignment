@@ -61,6 +61,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+        return view('customer.edit');
     }
 
     /**
