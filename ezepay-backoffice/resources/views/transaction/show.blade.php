@@ -1,137 +1,77 @@
 @extends('master')
 
 @section('content')
-<div class="container">
-  <div class="card">
-<div class="card-header">
-Invoice
-<strong>{{$transaction['date']}}</strong> 
-  <span class="float-right"> <strong>Status:</strong>{{$transaction['status']}}</span>
 
-</div>
-<div class="card-body">
-<div class="row mb-4">
-<div class="col-sm-6">
-<h6 class="mb-3">From:</h6>
-<div>
-<strong>Webz Poland</strong>
-</div>
-<div>Madalinskiego 8</div>
-<div>71-101 Szczecin, Poland</div>
-<div>Email: info@webz.com.pl</div>
-<div>Phone: +48 444 666 3333</div>
-</div>
+	<div class="container">
 
-<div class="col-sm-6">
-<h6 class="mb-3">To:</h6>
-<div>
-<strong>Bob Mart</strong>
-</div>
-<div>Attn: Daniel Marek</div>
-<div>43-190 Mikolow, Poland</div>
-<div>Email: marek@daniel.com</div>
-<div>Phone: +48 123 456 789</div>
-</div>
+		<div class="card">
 
+			<div class="card-header">
+				<h2> Tnx Id: <strong>{{$transaction['transaction_id']}}</strong>  </h2>
+			</div>
 
+			<div class="card-header">
+				<h4>Tnx Date: <strong>{{$transaction['created_at']}}</strong></h4>
+			</div>
 
-</div>
+			<br>
+			
+			<div class="card-body">
 
-<div class="table-responsive-sm">
-<table class="table table-striped">
-<thead>
-<tr>
-<th class="center">#</th>
-<th>Item</th>
-<th>Description</th>
+				<div class="row mb-4">
 
-<th class="right">Unit Cost</th>
-  <th class="center">Qty</th>
-<th class="right">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="center">1</td>
-<td class="left strong">Origin License</td>
-<td class="left">Extended License</td>
+					<div class="col-sm-3">
+						<h5 class="mb-3">From:</h5>
+							<div>
+								<h3><strong>{{$transaction['customer_name']}}</strong></h3>
+							</div>
+							<div>
+								<h4>{{$transaction['customer_contact']}}</h4>
+							</div>
+					</div>
 
-<td class="right">$999,00</td>
-  <td class="center">1</td>
-<td class="right">$999,00</td>
-</tr>
-<tr>
-<td class="center">2</td>
-<td class="left">Custom Services</td>
-<td class="left">Instalation and Customization (cost per hour)</td>
+					<div class="col-sm-3">
+						<h5 class="mb-3">To:</h5>
+							<div>
+								<h3><strong>{{$transaction['merchant_name']}}</strong></h3>
+							</div>
+					</div>
+				</div>
 
-<td class="right">$150,00</td>
-  <td class="center">20</td>
-<td class="right">$3.000,00</td>
-</tr>
-<tr>
-<td class="center">3</td>
-<td class="left">Hosting</td>
-<td class="left">1 year subcription</td>
+				<br>
+				<br>
+				
+				<div class="table-responsive-sm">
 
-<td class="right">$499,00</td>
-  <td class="center">1</td>
-<td class="right">$499,00</td>
-</tr>
-<tr>
-<td class="center">4</td>
-<td class="left">Platinum Support</td>
-<td class="left">1 year subcription 24/7</td>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Transaction Id</th>
+								<th>Customer</th>
+								<th>Merchant</th>
+								<th>Date</th>
+								<th>Currency</th>
+								<th>Amount</th>
+								<th>Staus</th>
+							</tr>
+						</thead>
 
-<td class="right">$3.999,00</td>
-  <td class="center">1</td>
-<td class="right">$3.999,00</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="row">
-<div class="col-lg-4 col-sm-5">
+						<tbody>
+							<tr>
+								<td>{{$transaction['transaction_id']}}</td>
+								<td>{{$transaction['customer_name']}}</td>
+								<td>{{$transaction['merchant_name']}}</td>
+								<td>{{$transaction['created_at']}}</td>
+								<td>{{$transaction['currency']}}</td>
+								<td>{{$transaction['amount']}}</td>
+								<td>{{$transaction['status']}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
-</div>
-
-<div class="col-lg-4 col-sm-5 ml-auto">
-<table class="table table-clear">
-<tbody>
-<tr>
-<td class="left">
-<strong>Subtotal</strong>
-</td>
-<td class="right">$8.497,00</td>
-</tr>
-<tr>
-<td class="left">
-<strong>Discount (20%)</strong>
-</td>
-<td class="right">$1,699,40</td>
-</tr>
-<tr>
-<td class="left">
- <strong>VAT (10%)</strong>
-</td>
-<td class="right">$679,76</td>
-</tr>
-<tr>
-<td class="left">
-<strong>Total</strong>
-</td>
-<td class="right">
-<strong>$7.477,36</strong>
-</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
+				<a href="/transactions" class="btn btn-primary">Go Back</a>
+			</div>
+		</div>
+	</div>
 @endsection

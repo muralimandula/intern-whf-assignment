@@ -2,16 +2,19 @@
 
 @section('content')
 <div class="container">
-	<h1>Ezepay Transactions</h1>	
-            <form>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                    <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by transaction Id.." title="Type in a transactionId">
+    <h1>Ezepay Transactions</h1>
+            <div class="row">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                        <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by transaction Id.." title="Type in a transactionId">
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
             
-            @if(count($errors) > 0)
+            <div class="row">
+                @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     {{-- <p>{{$errors}}</p> --}}
                     <ul>
@@ -24,6 +27,9 @@
                 </div>
             @endif
 
+            </div>
+
+
             @if ($message = Session::get('success'))
                 <div class="aler alert-success">
                     <p>{{$message}}</p>
@@ -34,7 +40,7 @@
                 <tr>
                     <th>Transaction Id</th>
                     <th>Amount</th>
-                    <th>Time</th>
+                    <th>Date</th>
                     <th>Status</th>
                 </tr>
                 @foreach ($allTransactions as $eachTransaction)
@@ -45,7 +51,7 @@
                         <tr>
                             <td>{{$eachTransaction['transaction_id']}}</td>
                             <td>{{$eachTransaction['amount']}}</td>
-                            <td>{{$eachTransaction['date']}}</td>
+                            <td>{{$eachTransaction['created_at']}}</td>
                             <td>{{$eachTransaction['status']}}</td>
                             <td><a href="{{action('TransactionController@show', $eachTransaction['transaction_id'])}}" class="btn btn-primary">View</a></td>
                             <td>
@@ -63,6 +69,8 @@
                     </form>
                 @endforeach
             </table>
+            {{-- below is to paginate the array of transactions set as paginate(n) : n records per page --}}
+            {{-- {{ $allTransactions->links() }} --}}
         </div>
 
         <script>

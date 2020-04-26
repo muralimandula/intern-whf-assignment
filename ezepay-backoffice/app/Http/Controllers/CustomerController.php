@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Rules\changeCustomerStatus;
 
 class CustomerController extends Controller
 {
@@ -50,6 +51,8 @@ class CustomerController extends Controller
     public function show($id)
     {
         //
+        $customer = Customer::find($id);
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -73,7 +76,23 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $customer = Customer::find($id);
         //
+        $request->validate([
+            'customerStatus' => [new changeCustomerStatus($customer, $request)]
+        ]);
+        
+
+        $customer['status'] = $request->get('customerStatus');
+
+        $customer->save();
+
+        // Uses  route from routes/web.php       
+        // Route::resource('customers', 'CustomerController'); "customers" is usage name of CustomerController
+        //
+        return redirect()
+                        ->route('customers.index')
+                        ->with('success', 'Updated successfully');   // calling index() method from Route,"customers" (i.e., CustomerController)
     }
 
     /**
