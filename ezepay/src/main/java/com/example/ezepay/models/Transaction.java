@@ -1,11 +1,15 @@
 package com.example.ezepay.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 //Operations on transactions:
@@ -35,8 +39,12 @@ public class Transaction {
 	private Long merchantRequestId;
 
 	private Long merchantId;
-	
+	private String merchantName; //Phase 2
+
 	private Long customerId;
+	private String customerName;  //Phase 2
+	private String customerContact; //Phase 2
+	
 	private Long cardId;
 
 	private int amount;
@@ -44,20 +52,33 @@ public class Transaction {
 
     private Date date;
     
-    private Long referenceId;
+    @CreationTimestamp
+    private LocalDateTime createdAt; //Phase 2
+    @UpdateTimestamp
+    private LocalDateTime updatedAt; //Phase 2
+    
+    private Long referenceId; //Phase 2
 	
 	protected Transaction() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Transaction(String status, Long merchantRequestId, Long merchantId, Long customerId,
-			Long cardId, int amount, String currency) {
+	public Transaction(String status, Long merchantRequestId,
+										Long merchantId,
+										String merchantName,  // phase 2
+										Long customerId,
+										String customerName,  // phase 2
+										String customerContact,  // phase 2
+										Long cardId, int amount, String currency) {
 		super();
 		this.status = status;
 		this.merchantRequestId = merchantRequestId;
 		this.merchantId = merchantId;
+		this.merchantName = merchantName;  // phase 2
 		this.customerId = customerId;
+		this.customerName = customerName;  // phase 2
+		this.customerContact = customerContact;  // phase 2
 		this.cardId = cardId;
 		this.amount = amount;
 		this.currency = currency;
@@ -91,7 +112,6 @@ public class Transaction {
 		this.merchantRequestId = merchantRequestId;
 	}
 
-
 	public Long getMerchantId() {
 		return merchantId;
 	}
@@ -99,7 +119,14 @@ public class Transaction {
 	public void setMerchantId(Long merchantId) {
 		this.merchantId = merchantId;
 	}
+	public String getMerchantName() {
+		return merchantName;
+	}
 
+
+	public void setMerchantName(String merchantName) {
+		this.merchantName = merchantName;
+	}
 	public Long getCustomerId() {
 		return customerId;
 	}
@@ -108,6 +135,21 @@ public class Transaction {
 		this.customerId = customerId;
 	}
 
+	public String getCustomerName() {
+		return customerName;
+	}
+
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getCustomerContact() {
+		return customerContact;
+	}
+
+	public void setCustomerContact(String customerContact) {
+		this.customerContact = customerContact;
+	}
 	public Long getCardId() {
 		return cardId;
 	}

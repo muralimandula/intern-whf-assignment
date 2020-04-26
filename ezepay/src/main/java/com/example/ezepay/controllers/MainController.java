@@ -135,7 +135,10 @@ public class MainController {
 
 		Transaction currentTransaction = new Transaction("Initiated", merchantRequestId,
 																	merchantId,
+																	merchantRepository.findById(merchantId).get().getName(), // phase 2
 																	currentCustomer.getCustomerId(),
+																	currentCustomer.getFirstName(),  // phase 2
+																	currentCustomer.getContact(),     // phase 2
 																	currentCard.getCardId(),
 																	amount,
 																	currency);

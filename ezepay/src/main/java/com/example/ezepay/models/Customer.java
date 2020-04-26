@@ -24,6 +24,7 @@ public class Customer {
 	private String city;
 	private String iPAddress;
 	private String dOB;
+	private String status; //Phase 2
 	
 //	public ArrayList<Integer> savedCards;
 //	public ArrayList<Integer> transactions;
@@ -44,6 +45,7 @@ public class Customer {
 		this.city = city;
 		this.iPAddress = iPAddress;
 		this.dOB = dOB;
+		this.status = "ACTIVE";  // phase 2
 	}
 
 	// Liquibase, Openfiegn...
@@ -114,5 +116,11 @@ public class Customer {
 	}
 	public void setDOB(String dOB) {
 		this.dOB = dOB;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
