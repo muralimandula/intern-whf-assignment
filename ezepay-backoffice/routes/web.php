@@ -17,5 +17,5 @@ Route::get('/', function () {
     return view('master');
 });
 
-Route::resource('transactions', 'TransactionController');
-Route::resource('customers', 'CustomerController');
+Route::resource('/transactions', 'TransactionController');    // ('endpoint', 'corresponding controller)
+Route::resource('/customers', 'CustomerController');        // https://laravel.com/docs/5.0/controllers#restful-resource-controllers

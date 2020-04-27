@@ -4,22 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transaction;
+use App\Response;
 use App\Rules\changeTransactionStatus;
+use App\Rules\DateFilter;
 
 class TransactionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $allTransactions = Transaction::all();
-        // $allTransactions =  Transaction::paginate(8); // to show 8 transactions per page, will create a link
+    public function index(Request $request)
+    {   
+        if($request->get('fromDate') == ''  and  $request->get('toDate') == '') {
+            $allTransactions = Transaction::all();
+            $recordsStatus = 'Fetching all Records : '.count($allTransactions) . ' found!';
+            // $allTransactions =  Transaction::paginate(8);                   // to show 8 transactions per page, will create a link
+        } else {
 
-        return view('transaction.index', compact('allTransactions'));  // View from folder   resources/views/transaction
+            $this->validate($request, [
+                'fromDate' => ['required', new DateFilter($request)],
+                'toDate' => 'required'
+            ]);
+
+            $allTransactions = Transaction::whereBetween('created_at', [$request->get('fromDate'), $request->get('toDate')] )->get();
+            $recordsStatus = count($allTransactions) . ' record/s found between ' . $request->get('fromDate') . ' and ' . $request->get('toDate');
+        }
+        
+        return view('transaction.index', compact('allTransactions', 'recordsStatus'));  // View from folder   resources/views/transaction
     }
 
     /**
@@ -54,7 +68,11 @@ class TransactionController extends Controller
         //
         $transaction = Transaction::find($id);
 
-        return view('transaction.show', compact('transaction'));
+        $simulatorResponse = Response::find($transaction['reference_id']);  // custom model, Response
+        if($simulatorResponse == null) {
+            $simulatorResponse = Response::find(0);
+        }
+        return view('transaction.show', compact('transaction', 'simulatorResponse'));
     }
 
     /**
@@ -93,8 +111,8 @@ class TransactionController extends Controller
         // Route::resource('transactions', 'TransactionController'); "transactions" is usage name of TransactionController
         //
         return redirect()
-                        ->route('transactions.index')
-                        ->with('success', 'Updated successfully');   // calling index() method from Route,"transactions" (i.e., TransactionController)
+                        ->route('transactions.index')               // calling index() method from Route,"transactions" (i.e., TransactionController)
+                        ->with('success', 'Updated successfully');   
 
     }
 

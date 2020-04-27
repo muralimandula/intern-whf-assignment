@@ -6,9 +6,27 @@
             <div class="row">
                 <form>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                        <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by transaction Id.." title="Type in a transactionId">
+                        <div class="form-group col-md-3">
+                            <label for="searchById">Search By Tnx Id:</label>
+                            <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by transaction Id.." title="Type in a transactionId">
                         </div>
+
+                        <div class="form-group col-md-2"></div>
+                        
+                        <form>
+                            <div class="form-group col-md-3">
+                                <label for="fromDate">From</label>
+                                <input type="date" name="fromDate" id="picker" class="form-control">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="toDate">To</label>
+                                <input type="date" name="toDate" id="picker" class="form-control">
+                            </div>
+                            <div class="form-group col-md-1" style="padding-top:26px">
+                                <input type="submit" value="GO" class="btn btn-primary">
+                            </div>
+                        </form>
+
                     </div>
                 </form>
             </div>
@@ -34,11 +52,15 @@
                 <div class="aler alert-success">
                     <p>{{$message}}</p>
                 </div>
-                
             @endif
+
+            <div>
+                <i><h4>----{{$recordsStatus}}-----</h4></i>
+            </div>
             <table id="myTable" class="table">
                 <tr>
                     <th>Transaction Id</th>
+                    <th>Merchant Req Id</th>
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -50,9 +72,11 @@
                         <input type="hidden" name="_method"  value="PATCH"/>
                         <tr>
                             <td>{{$eachTransaction['transaction_id']}}</td>
+                            <td>{{$eachTransaction['merchant_request_id']}}</td>
                             <td>{{$eachTransaction['amount']}}</td>
                             <td>{{$eachTransaction['created_at']}}</td>
                             <td>{{$eachTransaction['status']}}</td>
+                            
                             <td><a href="{{action('TransactionController@show', $eachTransaction['transaction_id'])}}" class="btn btn-primary">View</a></td>
                             <td>
                                 <select name="newStatus" class="browser-default custom-select">

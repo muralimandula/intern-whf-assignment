@@ -47,24 +47,30 @@
 						<thead>
 							<tr>
 								<th>Transaction Id</th>
+								<th>Reference Id</th>
+								<th>Merchant Req Id</th>
 								<th>Customer</th>
 								<th>Merchant</th>
 								<th>Date</th>
 								<th>Currency</th>
 								<th>Amount</th>
 								<th>Staus</th>
+								<th>Response</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
 								<td>{{$transaction['transaction_id']}}</td>
+								<td>{{$transaction['reference_id']}}</td>
+								<td>{{$transaction['merchant_request_id']}}</td>
 								<td>{{$transaction['customer_name']}}</td>
 								<td>{{$transaction['merchant_name']}}</td>
 								<td>{{$transaction['created_at']}}</td>
 								<td>{{$transaction['currency']}}</td>
 								<td>{{$transaction['amount']}}</td>
 								<td>{{$transaction['status']}}</td>
+								<td>{{$simulatorResponse['message']}}</td>
 							</tr>
 						</tbody>
 					</table>
