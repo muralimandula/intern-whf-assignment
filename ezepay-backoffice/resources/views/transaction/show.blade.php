@@ -76,7 +76,7 @@
 					</table>
 				</div>
 
-				<a href="/transactions" class="btn btn-primary">Go Back</a>
+				<button onclick=window.history.back() class="btn btn-primary">Go Back</button>
 			</div>
 		</div>
 	</div>

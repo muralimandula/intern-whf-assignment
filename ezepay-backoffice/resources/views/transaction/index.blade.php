@@ -11,7 +11,6 @@
                             <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by transaction Id.." title="Type in a transactionId">
                         </div>
 
-                        <div class="form-group col-md-2"></div>
                         
                         <form>
                             <div class="form-group col-md-3">
@@ -63,7 +62,22 @@
                     <th>Merchant Req Id</th>
                     <th>Amount</th>
                     <th>Date</th>
-                    <th>Status</th>
+                    <th>
+                        <select  onchange="myStatusFilter(this);">
+                            <option selected>All status</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Initiated">Initiated</option>
+                            <option value="SUCCESS">SUCCESS</option>
+                            <option value="FAILED">FAILED</option>
+                            <option value="Refund">Refund</option>
+                            <option value="Chargeback">Chargeback</option>
+                            <option value="Blocked">Blocked</option>
+
+                        </select>
+                    </th>
+                    <th>Detail View</th>
+                    <th>Update status</th>
+                    <th>------</th>
                 </tr>
                 @foreach ($allTransactions as $eachTransaction)
                     <form action={{action('TransactionController@update', $eachTransaction['transaction_id'])}} method="POST">
@@ -81,6 +95,10 @@
                             <td>
                                 <select name="newStatus" class="browser-default custom-select">
                                     <option selected>Change status</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Initiated">Initiated</option>
+                                    <option value="SUCCESS">SUCCESS</option>
+                                    <option value="FAILED">FAILED</option>
                                     <option value="Refund">Refund</option>
                                     <option value="Chargeback">Chargeback</option>
                                     <option value="Blocked">Blocked</option>
@@ -116,6 +134,38 @@
                         }
                     }       
                 }
+            }
+
+            
+        </script>
+        
+        <script>
+            function myStatusFilter(filter) {
+                var table, tr, recordStatus, i, txtValue;
+                // input = document.getElementById("myStatusFilter");  // For '<select> <option></option> </select>' value cannot be obtained by document.getElementById('id')
+                filter = filter.value.toUpperCase();
+                // alert(filter);
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    recordStatus = tr[i].getElementsByTagName("td")[4];
+
+                    if(filter == 'ALL STATUS') {
+                        tr[i].style.display = "";
+                    }
+                    
+                    else if (recordStatus) {
+                        txtValue = (recordStatus.textContent || recordStatus.innerText);
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                    else {
+                        
+                    }
+                } 
             }
         </script>
 @endsection

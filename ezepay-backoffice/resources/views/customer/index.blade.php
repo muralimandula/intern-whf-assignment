@@ -42,7 +42,16 @@
                     <th>Name</th>
                     <th>Contact</th>
                     <th>Email</th>
-                    <th>Status</th>
+                    <th>
+                        <select onchange="myStatusFilter(this);">
+                            <option selected>All status</option>
+                            <option value="Blacklist">Blacklist</option>
+                            <option value="Whitelist">Whitelist</option>
+                        </select>
+                    </th>
+                    <th>Detail View</th>
+                    <th>Update status</th>
+                    <th>------</th>
                 </tr>
                 @foreach ($allCustomers as $eachCustomer)
                     {{-- <form action={{action('CustomerController@edit', $eachCustomer['customer_id'])}} method="GET"> --}}
@@ -62,7 +71,7 @@
                                 <select name="customerStatus" class="form-group col-md-10">
                                     <option selected>Change status</option>
                                     <option value="Blacklist">Blacklist</option>
-                                    <option value="Whiltelist">Whiltelist</option>
+                                    <option value="Whitelist">Whitelist</option>
                                 </select>
                             </td>
                             <td>
@@ -92,6 +101,36 @@
                         } else {
                             tr[i].style.display = "none";
                         }
+                    }       
+                }
+            }
+        </script>
+
+        <script>
+            function myStatusFilter(filter) {
+                var table, tr, recordStatus, i, txtValue;
+                // input = document.getElementById("myStatusFilter");  // For '<select> <option></option> </select>' value cannot be obtained by document.getElementById('id')
+                filter = filter.value.toUpperCase();
+                // alert(filter);
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    recordStatus = tr[i].getElementsByTagName("td")[4];
+
+                    if(filter == 'ALL STATUS') {
+                        tr[i].style.display = "";
+                    }
+                    
+                    else if (recordStatus) {
+                        txtValue = (recordStatus.textContent || recordStatus.innerText);
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                    else {
+                        
                     }       
                 }
             }
