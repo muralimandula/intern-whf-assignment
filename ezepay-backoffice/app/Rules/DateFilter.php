@@ -8,6 +8,7 @@ class DateFilter implements Rule
 {
 
     protected $fromToDate;
+    protected $isValidSearch;
     /**
      * Create a new rule instance.
      *
@@ -17,6 +18,7 @@ class DateFilter implements Rule
     {
         //
         $this->fromToDate = $fromToDate;
+        $this->isValidSearch = $this->fromToDate['fromDate'] <= $this->fromToDate['toDate'];
     }
 
     /**
@@ -31,7 +33,7 @@ class DateFilter implements Rule
         // $value is the field value on which Validation applied
         // still we can use request object passed on (i.e., $fromToDate)
 
-        return $this->fromToDate['fromDate'] <= $this->fromToDate['toDate'];
+        return $this->isValidSearch;
     }
 
     /**
@@ -41,6 +43,8 @@ class DateFilter implements Rule
      */
     public function message()
     {
-        return 'Select proper dates : From ' . $this->fromToDate['fromDate']  .' to ' . $this->fromToDate['toDate'] . ' not Applicable.' ;
+        if (!$this->isValidSearch) {
+            return 'Select proper dates : From ' . $this->fromToDate['fromDate']  .' to ' . $this->fromToDate['toDate'] . ' not Applicable.' ;
+        }
     }
 }

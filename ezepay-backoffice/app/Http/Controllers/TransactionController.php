@@ -18,18 +18,26 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {   
-        if($request->get('fromDate') == ''  and  $request->get('toDate') == '') {
-            $allTransactions = Transaction::all();
-            $recordsStatus = 'Fetching all Records : '.count($allTransactions) . ' found!';
+        
+        if (!$request->has('fromDate')) {            //if NO date filter request made, means no keys available : Deafult List
+
+            // $allTransactions = Transaction::whereBetween('created_at',[date('Y-m-d')." 00:00:01", date('Y-m-d')." 23:59:59"])->get();
+            // Both brings records created on current date(today).
+            $allTransactions = Transaction::where('created_at',"LIKE", date('Y-m-d') . "%")->get();
+            
+            $recordsStatus = 'Fetching all Records: ' . count($allTransactions) . ' found today! ' . date('Y-m-d');
             // $allTransactions =  Transaction::paginate(8);                   // to show 8 transactions per page, will create a link
         } else {
 
             $this->validate($request, [
-                'fromDate' => ['required', new DateFilter($request)],
-                'toDate' => 'required'
+                'fromDate' => 'required',
+                'toDate' => ['required',  new DateFilter($request)]
             ]);
 
-            $allTransactions = Transaction::whereBetween('created_at', [$request->get('fromDate'), $request->get('toDate')] )->get();
+            $start = date("Y-m-d",strtotime($request->get('fromDate')));
+            $end = date("Y-m-d",strtotime($request->get('toDate')."+1 day")); // TO include toDate in the result
+
+            $allTransactions = Transaction::whereBetween('created_at', [$start, $end])->get();
             $recordsStatus = count($allTransactions) . ' record/s found between ' . $request->get('fromDate') . ' and ' . $request->get('toDate');
         }
         
