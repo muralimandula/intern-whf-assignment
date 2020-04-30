@@ -39,40 +39,51 @@
 				</div>
 
 				<br>
-				<br>
-				
+
 				<div class="table-responsive-sm">
 
 					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>Transaction Id</th>
-								<th>Reference Id</th>
-								<th>Merchant Req Id</th>
-								<th>Customer</th>
-								<th>Merchant</th>
-								<th>Date</th>
-								<th>Currency</th>
-								<th>Amount</th>
-								<th>Staus</th>
-								<th>Response</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>{{$transaction['transaction_id']}}</td>
-								<td>{{$transaction['reference_id']}}</td>
-								<td>{{$transaction['merchant_request_id']}}</td>
-								<td>{{$transaction['customer_name']}}</td>
-								<td>{{$transaction['merchant_name']}}</td>
-								<td>{{$transaction['created_at']}}</td>
-								<td>{{$transaction['currency']}}</td>
-								<td>{{$transaction['amount']}}</td>
-								<td>{{$transaction['status']}}</td>
-								<td>{{$simulatorResponse['message']}}</td>
-							</tr>
-						</tbody>
+						
+						<tr>
+							<th>Transaction Id</th>
+							<td>{{$transaction['transaction_id']}}</td>
+						</tr>
+						<tr>
+							<th>Reference Id</th>
+							<td>{{$transaction['reference_id']}}</td>
+						</tr>
+						<tr>
+							<th>Merchant Req Id</th>
+							<td>{{$transaction['merchant_request_id']}}</td>
+						</tr>
+						<tr>
+							<th>Customer</th>
+							<td>{{$transaction['customer_name']}}</td>
+						</tr>
+						<tr>
+							<th>Merchant</th>
+							<td>{{$transaction['merchant_name']}}</td>
+						</tr>
+						<tr>
+							<th>Date</th>
+							<td>{{$transaction['created_at']}}</td>
+						</tr>
+						<tr>
+							<th>Currency</th>
+							<td>{{$transaction['currency']}}</td>
+						</tr>
+						<tr>
+							<th>Amount</th>
+							<td>{{$transaction['amount']}}</td>
+						</tr>
+						<tr>
+							<th>Staus</th>
+							<td>{{$transaction['status']}}</td>
+						</tr>
+						<tr>
+							<th>Response</th>
+							<td>{{$simulatorResponse['message']}}</td>
+						</tr>
 					</table>
 				</div>
 
