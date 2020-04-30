@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.ezepay.models.Address;
 import com.example.ezepay.models.Card;
 import com.example.ezepay.models.Customer;
 import com.example.ezepay.models.Merchant;
@@ -18,7 +20,7 @@ import com.example.ezepay.models.MerchantRequest;
 import com.example.ezepay.models.PaymentRequestBody;
 import com.example.ezepay.models.PaymentResponseBody;
 import com.example.ezepay.models.Transaction;
-
+import com.example.ezepay.repositories.AddressRepository;
 import com.example.ezepay.repositories.MerchantRepository;
 import com.example.ezepay.repositories.MerchantRequestRepository;
 import com.example.ezepay.repositories.PaymentRequestRepository;
@@ -64,6 +66,8 @@ public class MainController {
 	PaymentResponseRepository paymentResponseRepository;
 	
 	
+	@Autowired
+	AddressRepository addressRepository;
 	
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 	
@@ -145,13 +149,16 @@ public class MainController {
 		currentTransaction = transactionRepository.save(currentTransaction);
 		
 		this.currentTransactionId = currentTransaction.getTransactionId();
+		
+		addressRepository.save(new Address(currentTransactionId, country, state, city, zip, newRequest.getiPAddress()));
 
-	    PaymentRequestBody requestBody = new PaymentRequestBody(currentTransactionId, cardBin, cardNum, amount, firstName, contact);
-	    PaymentResponseBody responseBody = authenticationService.paymentProcess(requestBody);
+	    PaymentRequestBody requestBody = new PaymentRequestBody(currentTransactionId, cardBin, cardNum, amount, firstName, contact);  
+	    PaymentResponseBody responseBody = authenticationService.paymentProcess(requestBody);			// request to simulator for payment process and get response, phase 2
 	    
-	    requestBody.setReferenceId(responseBody.getReferenceId());
+	    requestBody.setReferenceId(responseBody.getReferenceId());         // -- UPDATE referenceId from simulator to the request made
 	    paymentRequestRepository.save(requestBody);
-	    currentTransaction.setReferenceId(responseBody.getReferenceId());  // -- UPDATE referenceId from simulator
+	    
+	    currentTransaction.setReferenceId(responseBody.getReferenceId());  // -- UPDATE referenceId from simulator to transaction
 	    currentTransaction.setStatus(responseBody.getStatus());
 	    transactionRepository.save(currentTransaction);
 	    

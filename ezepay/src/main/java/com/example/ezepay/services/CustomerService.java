@@ -31,16 +31,13 @@ public class CustomerService {
 		if(currentCustomer == null) {
 			// -----------------------------------------------------------------------------------------------Creating a new Customer entry, when NOT FOUND IN DATABASE
 			
-			currentCustomer = new Customer(merchantRequest.getEmail(),
+			currentCustomer = new Customer(
 											merchantRequest.getFirstName(),
 											merchantRequest.getLastName(),
-											merchantRequest.getContact(), 
-											merchantRequest.getCountry(),
-											merchantRequest.getZip(),
-											merchantRequest.getState(),
-											merchantRequest.getCity(),
-											merchantRequest.getiPAddress(),
-											merchantRequest.getDOB());
+											merchantRequest.getEmail(),
+											merchantRequest.getContact(),
+											merchantRequest.getDOB()
+											);
 			
 			currentCustomer = customerRepository.save(currentCustomer); // Saves and return Customer object updated with id.
 			currentCustomerId = currentCustomer.getCustomerId(); 		// To get update auto-generated Id in Database.

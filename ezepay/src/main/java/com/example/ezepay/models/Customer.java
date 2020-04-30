@@ -45,11 +45,20 @@ public class Customer {
 		this.city = city;
 		this.iPAddress = iPAddress;
 		this.dOB = dOB;
-		this.status = "ACTIVE";  // phase 2
+		this.status = "Whitelist";  // phase 2
 	}
 
 	// Liquibase, Openfiegn...
 
+	public Customer(String firstName, String lastName, String email, String contact, String dOB) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.contact = contact;
+		this.dOB = dOB;
+		this.status = "Whitelist";  // phase 2
+	}
 	public Long getCustomerId() {
 		return customerId;
 	}
