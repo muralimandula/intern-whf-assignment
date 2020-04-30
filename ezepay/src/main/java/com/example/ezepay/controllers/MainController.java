@@ -147,16 +147,21 @@ public class MainController {
 		this.currentTransactionId = currentTransaction.getTransactionId();
 
 	    PaymentRequestBody requestBody = new PaymentRequestBody(currentTransactionId, cardBin, cardNum, amount, firstName, contact);
-	    PaymentResponseBody responseBody = authenticationService.getAuthentication(requestBody);
+	    PaymentResponseBody responseBody = authenticationService.paymentProcess(requestBody);
+	    
 	    requestBody.setReferenceId(responseBody.getReferenceId());
 	    paymentRequestRepository.save(requestBody);
-	    paymentResponseRepository.save(responseBody);
-	    
-	    log.info("--------- Response from Simulator : Transaction " + responseBody.getStatus());
-
 	    currentTransaction.setReferenceId(responseBody.getReferenceId());  // -- UPDATE referenceId from simulator
 	    currentTransaction.setStatus(responseBody.getStatus());
 	    transactionRepository.save(currentTransaction);
+	    
+	    if(responseBody.getReferenceId() != null) {
+	    	paymentResponseRepository.save(responseBody);	
+	    }
+
+	    log.info("--------- Response from Simulator: " + responseBody.getStatus() + '-' + responseBody.getMessage());
+
+
 	    
 	    model.addAttribute("response", responseBody);
 		model.addAttribute("merchant", merchantRepository.findById(this.currentMerchantId).get());

@@ -10,13 +10,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.ezepay.models.PaymentRequestBody;
 import com.example.ezepay.models.PaymentResponseBody;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 public class AuthenticationService {
 
 	@Autowired
 	RestTemplate restTemplate;
 	
-	public PaymentResponseBody getAuthentication(PaymentRequestBody requestBody) {
+	@HystrixCommand(fallbackMethod = "paymentProcessFallback")
+	public PaymentResponseBody paymentProcess(PaymentRequestBody requestBody) {
 		
 		/*
 		 *  Here is where we have to make a request to the simulator for the authentication to be done.
@@ -45,5 +47,14 @@ public class AuthenticationService {
 	    															PaymentResponseBody.class);
 	    
 	    return responseEntity.getBody();
+	}
+	
+	public PaymentResponseBody paymentProcessFallback(PaymentRequestBody requestBody) {
+		PaymentResponseBody serverFailResponseBody = new PaymentResponseBody();
+		serverFailResponseBody.setStatus("FAILED");
+		serverFailResponseBody.setMessage("Server Not Available.");
+		
+		return serverFailResponseBody;
+		
 	}
 }

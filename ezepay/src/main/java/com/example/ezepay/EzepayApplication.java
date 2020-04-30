@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,8 +14,8 @@ import com.example.ezepay.services.CustomerService;
 import com.example.ezepay.services.TransactionService;
 
 
+@EnableCircuitBreaker
 @SpringBootApplication
-
 public class EzepayApplication {
 
 //	private static final Logger log = LoggerFactory.getLogger(EzepayApplication.class);
