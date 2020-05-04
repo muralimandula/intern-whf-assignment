@@ -18,11 +18,6 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String contact;
-	private String country;
-	private String zip;
-	private String state;
-	private String city;
-	private String iPAddress;
 	private String dOB;
 	private String status; //Phase 2
 	
@@ -32,21 +27,7 @@ public class Customer {
 	protected Customer() {
 		// TODO Auto-generated constructor stub : PROTECTED
 	}
-	public Customer(String email, String firstName, String lastName, String contact, String country, String zip,
-			String state, String city, String iPAddress, String dOB) {
-		super();
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.contact = contact;
-		this.country = country;
-		this.zip = zip;
-		this.state = state;
-		this.city = city;
-		this.iPAddress = iPAddress;
-		this.dOB = dOB;
-		this.status = "Whitelist";  // phase 2
-	}
+
 
 	// Liquibase, Openfiegn...
 
@@ -89,37 +70,6 @@ public class Customer {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getIPAddress() {
-		return iPAddress;
-	}
-	public void setIPAddress(String iPAddress) {
-		this.iPAddress = iPAddress;
-	}
-
 	public String getDOB() {
 		return this.dOB;
 	}
