@@ -60,7 +60,10 @@
                 <tr>
                     <th>Transaction Id</th>
                     <th>Merchant Req Id</th>
+                    <th>Currency</th>
                     <th>Amount</th>
+                    <th>Merchant Currency</th>
+                    <th>Final Amount </th>
                     <th>Date</th>
                     <th>
                         <select  onchange="myStatusFilter(this);">
@@ -87,7 +90,10 @@
                         <tr>
                             <td>{{$eachTransaction['transaction_id']}}</td>
                             <td>{{$eachTransaction['merchant_request_id']}}</td>
+                            <td>{{$eachTransaction['currency']}}</td>
                             <td>{{$eachTransaction['amount']}}</td>
+                            <td>{{$eachTransaction['to_currency']}}</td>
+                            <td>{{$eachTransaction['final_amount']}}</td>
                             <td>{{$eachTransaction['created_at']}}</td>
                             <td>{{$eachTransaction['status']}}</td>
                             

@@ -23,7 +23,7 @@
         <div class="navbar navbar-collapse">
 
         </div>
-        <div class="container">
+        <div class="container" style="width: fit-content">
             @yield('content')
         </div>
     </body>

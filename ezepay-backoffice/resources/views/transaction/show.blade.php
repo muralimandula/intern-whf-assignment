@@ -13,8 +13,6 @@
 			<div class="card-header">
 				<h4>Tnx Date: <strong>{{$transaction['created_at']}}</strong></h4>
 			</div>
-
-			<br>
 			
 			<div class="card-body">
 
@@ -77,6 +75,18 @@
 							<td>{{$transaction['amount']}}</td>
 						</tr>
 						<tr>
+							<th>Merchant Currency</th>
+							<td>{{$transaction['to_currency']}}</td>
+						</tr>
+						<tr>
+							<th>Conversion Rate</th>
+							<td>{{$transaction['conversion_rate']}}</td>
+						</tr>
+						<tr>
+							<th>Final Amount</th>
+							<td>{{$transaction['final_amount']}}</td>
+						</tr>
+						<tr>
 							<th>Staus</th>
 							<td>{{$transaction['status']}}</td>
 						</tr>
@@ -91,4 +101,5 @@
 			</div>
 		</div>
 	</div>
+	<br>
 @endsection
