@@ -58,6 +58,13 @@ public class Transaction {
     private LocalDateTime updatedAt; //Phase 2
     
     private Long referenceId; //Phase 2
+    
+	private String toCurrency; //Post review
+    
+    private Double conversionRate; //Post review
+    
+    private int finalAmount; //Post review
+    
 	
 	protected Transaction() {
 		// TODO Auto-generated constructor stub
@@ -70,7 +77,8 @@ public class Transaction {
 										Long customerId,
 										String customerName,  // phase 2
 										String customerContact,  // phase 2
-										Long cardId, int amount, String currency) {
+										Long cardId, int amount, String currency,
+										String toCurrency, Double conversionRate, Integer finalAmount) {  //Post review
 		super();
 		this.status = status;
 		this.merchantRequestId = merchantRequestId;
@@ -82,6 +90,9 @@ public class Transaction {
 		this.cardId = cardId;
 		this.amount = amount;
 		this.currency = currency;
+		this.toCurrency = toCurrency;
+		this.conversionRate = conversionRate;
+		this.finalAmount = finalAmount;
 		this.date = java.util.Calendar.getInstance().getTime();
 	}
 
@@ -189,6 +200,35 @@ public class Transaction {
 
 	public void setReferenceId(Long referenceId) {
 		this.referenceId = referenceId;
+	}
+
+    public String getToCurrency() {
+		return toCurrency;
+	}
+
+
+	public void setToCurrency(String toCurrency) {
+		this.toCurrency = toCurrency;
+	}
+
+
+	public Double getConversionRate() {
+		return conversionRate;
+	}
+
+
+	public void setConversionRate(Double conversionRate) {
+		this.conversionRate = conversionRate;
+	}
+
+
+	public int getFinalAmount() {
+		return finalAmount;
+	}
+
+
+	public void setFinalAmount(int finalAmount) {
+		this.finalAmount = finalAmount;
 	}
 
 
