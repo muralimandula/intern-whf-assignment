@@ -18,7 +18,7 @@
 			  <div class="card-body">
 			    <h5 class="card-title" th:text="${merchant.name}"></h5>
 			    <p class="card-text" th:text="${merchant.website}"></p>
-			    
+			    <p class="card-text" th:text="${merchant.baseCurrency}"></p>
 			    <a th:href="'/merchant/' + ${merchant.merchantId}" class="btn btn-primary">Do payment</a>
 			  </div>
 			</div>
