@@ -28,6 +28,7 @@ import com.example.ezepay.repositories.PaymentResponseRepository;
 import com.example.ezepay.repositories.TransactionRepository;
 import com.example.ezepay.services.AuthenticationService;
 import com.example.ezepay.services.CardService;
+import com.example.ezepay.services.CurrencyConversionService;
 import com.example.ezepay.services.CustomerService;
 import com.example.ezepay.services.TransactionService;
 
@@ -68,6 +69,9 @@ public class MainController {
 	
 	@Autowired
 	AddressRepository addressRepository;
+	
+	@Autowired
+	CurrencyConversionService currencyConversionService;
 	
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 	
@@ -136,7 +140,21 @@ public class MainController {
 		Card currentCard = cardService.findAndUpdateCard(newRequest);
 
 		Long merchantId = this.currentMerchantId;
-
+		
+	    
+	    
+	    String toCurrency = merchantRepository.findById(currentMerchantId).get().getBaseCurrency(); //Post review
+	    
+	    log.info("--------Merchant base_currency : " + toCurrency + " Customer Currency : " + currency);
+	    
+	    Double conversionRate = currencyConversionService.getConversionRate(currency, toCurrency); //Post review
+	    
+	    log.info("-------COnversion rate from " + currency + " to " + toCurrency + " is " + conversionRate);
+	    
+	    int finalAmount = currencyConversionService.getFinalAmount(amount, conversionRate);							//Post review
+	    
+	    log.info("----Final Amount for " + amount + " " + currency + " in " + toCurrency + " is " + finalAmount);
+	    
 		Transaction currentTransaction = new Transaction("Initiated", merchantRequestId,
 																	merchantId,
 																	merchantRepository.findById(merchantId).get().getName(), // phase 2
@@ -145,7 +163,10 @@ public class MainController {
 																	currentCustomer.getContact(),     // phase 2
 																	currentCard.getCardId(),
 																	amount,
-																	currency);
+																	currency,
+																	toCurrency,
+																	conversionRate,
+																	finalAmount);
 		currentTransaction = transactionRepository.save(currentTransaction);
 		
 		this.currentTransactionId = currentTransaction.getTransactionId();
