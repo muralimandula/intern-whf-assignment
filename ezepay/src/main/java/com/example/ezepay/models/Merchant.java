@@ -23,6 +23,7 @@ public class Merchant {
 	private String website;
 	private String contact;
 	
+	private String baseCurrency; // Post Review
 	
 	protected Merchant() {
 		// TODO Auto-generated constructor stub : we don't use this 
@@ -71,5 +72,11 @@ public class Merchant {
 	}
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+	public String getBaseCurrency() {
+		return baseCurrency;
+	}
+	public void setBaseCurrency(String baseCurrency) {
+		this.baseCurrency = baseCurrency;
 	}
 }
